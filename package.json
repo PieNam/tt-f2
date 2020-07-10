@@ -24,5 +24,9 @@
   "dependencies": {
     "@antv/f2": "^3.6.4",
     "replace": "^1.2.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:PieNam/tt-f2.git"
   }
 }
