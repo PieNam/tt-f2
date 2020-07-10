@@ -4,13 +4,13 @@
 
 ## 说明
 
-目前仅对字节跳动/头条/飞书小程序（后简称 tt/头条 小程序）直接引入 f2 时无法直接适配的部分做了修改，没有封装组件。除了因为小程序运行环境问题，不支持在图表中插入自定义 HTML 元素功能外，其他功能可以按照 [f2 官方文档及 DEMO](https://antv-f2.gitee.io/zh) 使用，只有初步接入传入 Canvas Context 时不同。
+目前仅对字节跳动/头条/飞书小程序（后简称 tt/头条 小程序）直接引入 f2 时无法直接适配的部分做了修改，没有封装组件。除了因为小程序运行环境问题，不支持在图表中插入自定义 HTML 元素功能外，其他功能可以按照 [f2 官方文档及 demo](https://antv-f2.gitee.io/zh) 使用，只有初步接入传入 Canvas Context 时不同。
 
 ## 用法
 
 ### 安装依赖
 
-```
+```shell
 npm install tt-f2 --save
 or
 yarn add tt-f2
@@ -22,7 +22,7 @@ yarn add tt-f2
 
 #### 简单示例
 
-```
+```JavaScript
 // 从适配包 tt-f2 引入 F2，与官方版本对应，tt-f2 提供了三个版本的 F2，分别是：
 
 import F2 from 'tt-f2/index';
@@ -30,8 +30,10 @@ import F2 from 'tt-f2/index-simple';
 import F2 from 'tt-f2/index-all';
 // all 版本支持所有功能，不必额外注册插件
 
+
 // 如页面上创建的 canvas 元素为：
 <canvas canvas-id="f2-canvas" class="f2"></canvas>
+
 
 // 绘图逻辑中首先要拿到头条小程序中该 canvas 的元素本身，在这里可以获取元素元信息加入配置
 const canvasNode = tt.createSelectorQuery().select('.f2');
@@ -45,9 +47,13 @@ canvasNode
 
     // 使用头条小程序 api 获取当前 Canvas 上下文
     const context = tt.createCanvasContext('f2-canvas');
+
     // 获取像素比，配置图表适配清晰度
     const {pixelRatio} = tt.getSystemInfoSync();
 
+    // 适配包提供 ttChart 入口
+    // 传入头条原生 Canvas Context，会被转化为适配版 Context 供 F2 使用
+    // 这里 ttChart 默认返回一个 chart 实例对象，可以不必写 new
     const chart = F2.ttChart({
       context,
       width,
@@ -58,7 +64,7 @@ canvasNode
 
     ......
 
-    // demo 源[官方演示](https://antv-f2.gitee.io/zh/examples/column/basic#gradient)
+    // demo 源官方演示: https://antv-f2.gitee.io/zh/examples/column/basic#gradient
     const data = [{
       year: '1996 年',
       sales: 531
@@ -105,7 +111,7 @@ canvasNode
 
 用头条小程序组件的 bind 方法为 Canvas 元素绑定事件：
 
-```
+```JavaScript
 chartRef 是需要维护的 chart 实例
 const touchStart = (e) => {
   chartRef.get('el').dispatchEvent('touchstart', e);
@@ -132,7 +138,9 @@ const touchEnd = (e) => {
 
 ### 上面的 demo 最终长这样
 
-![tt-f2 interval demo](https://p1-g.byteimg.com/tos-cn-i-8vc7tlzf3c/dc953c1acaa24aaf9a5c6cd13683e663~tplv-8vc7tlzf3c-raw.png)
+![tt-f2 interval demo](https://p1-g.byteimg.com/tos-cn-i-8vc7tlzf3c/0bddc4d74fd14cb48dfe1d516a3b448b~tplv-8vc7tlzf3c-raw.png)
+
+
 
 ## TODO
 
