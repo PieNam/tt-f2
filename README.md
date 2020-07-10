@@ -18,7 +18,7 @@ yarn add tt-f2
 
 ### 引入规则
 
-头条小程序对 f2 的不适配之处主要是其实现的 Canvas 上下文环境、API 不同。`tt-f2` 中做了适配，每次初始化时需要获取创建好的 Canvas 元素上下文，并传入包中完成初始化，后续的 chart 图形语法就与原版无异了。
+头条小程序对 f2 的不适配之处主要是其实现的 Canvas 上下文环境、API 不同。`tt-f2` 中做了适配，保持了原有的语法。每次初始化时需要获取创建好的 Canvas 元素上下文，并传入包中完成初始化，后续的 chart 图形语法就与原版无异了。
 
 #### 简单示例
 
@@ -51,10 +51,8 @@ canvasNode
     // 获取像素比，配置图表适配清晰度
     const {pixelRatio} = tt.getSystemInfoSync();
 
-    // 适配包提供 ttChart 入口
-    // 传入头条原生 Canvas Context，会被转化为适配版 Context 供 F2 使用
-    // 这里 ttChart 默认返回一个 chart 实例对象，可以不必写 new
-    const chart = F2.ttChart({
+    // 适配包继承修改了原来的 Chart 类，会将头条小程序环境下的 Canvas 上下文进行适配
+    const chart = new F2.Chart({
       context,
       width,
       height,

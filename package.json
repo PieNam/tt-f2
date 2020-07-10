@@ -4,7 +4,7 @@
   "description": "@antv/f2 adaptation on bytedance/toutiao micro app",
   "main": "index.js",
   "scripts": {
-    "postinstall": "node ./util/HexFormatter.js"
+    "postinstall": "node ./util/hexFormatter.js"
   },
   "keywords": [
     "antv/f2",

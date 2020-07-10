@@ -15,7 +15,7 @@ const TT_CANVAS_CONTEXT_MAP = {
 };
 
 export default (ctx) => {
-  Object.keys(TT_CANVAS_CONTEXT_MAP).map(key => {
+  Object.keys(TT_CANVAS_CONTEXT_MAP).forEach(key => {
     Object.defineProperty(ctx, key, {
       set(val) {
         const name = `set${TT_CANVAS_CONTEXT_MAP[key]}`;
@@ -29,7 +29,6 @@ export default (ctx) => {
         ctx[name](val);
       }
     });
-    return key;
   });
   return ctx;
 }
