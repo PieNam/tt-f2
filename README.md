@@ -145,5 +145,6 @@ const touchEnd = (e) => {
 - [x] 头条 Canvas Context 适配
 - [x] RGB HEX 缩写替换  
 - [ ] DEMO 小程序展示功能
-- [ ] 仓库规范
+- [ ] 更完整的 TypeScript 支持与说明
+- [ ] 仓库、代码规范
 - [x] ... 欢迎一起交流学习！
