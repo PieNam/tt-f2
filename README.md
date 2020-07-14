@@ -1,6 +1,6 @@
 # tt-f2 —— @antv/f2 的字节跳动/头条/飞书小程序适配版
 
-当前支持除 `chart.guide().html()` 之外的 f2 功能。
+当前支持除 `chart.guide().html()`、`Interaction` 之外的 f2 功能。
 
 ## 说明
 
@@ -23,12 +23,12 @@ yarn add tt-f2
 #### 简单示例
 
 ```JavaScript
-// 从适配包 tt-f2 引入 F2，与官方版本对应，tt-f2 提供了三个版本的 F2，分别是：
+// 从适配包 tt-f2 引入 F2
+import F2 from 'tt-f2';
 
-import F2 from 'tt-f2/index';
-import F2 from 'tt-f2/index-simple';
-import F2 from 'tt-f2/index-all';
-// all 版本支持所有功能，不必额外注册插件
+// f2 官方版本提供了基础版、完全版（all 默认注册所有插件）、简单版（只有简单图表）
+// 小程序环境中直接引用完全版，已知出现 Interaction 注册时的环境问题
+// 加之完全引用包大小和编译时间都明显提高，推荐使用默认版本，手动注册插件（如 pie-label 等，参见官网）
 
 
 // 如页面上创建的 canvas 元素为：
@@ -146,5 +146,6 @@ const touchEnd = (e) => {
 - [x] RGB HEX 缩写替换  
 - [ ] DEMO 小程序展示功能
 - [ ] 更完整的 TypeScript 支持与说明
+- [ ] 引入完整包时的 Interaction 载入问题
 - [ ] 仓库、代码规范
 - [x] ... 欢迎一起交流学习！
