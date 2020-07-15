@@ -4,6 +4,11 @@
 
 目前仅对字节跳动/头条/飞书小程序（后简称 tt/头条 小程序）直接引入 f2 时无法直接适配的部分做了修改，没有封装组件。
 
+适配内容：
+
+- @antv/f2 中使用较多 RGB HEX 简写色值如 #fff, #000，在 tt-f2 中使用 postinstall 钩子执行脚本完成正则匹配替换
+- 头条小程序中的 Canvas 环境与 H5 标准有差异，运行时通过对 CanvasContext 的再次包装适配接口
+
 除了因为小程序运行环境问题，不支持在图表中插入自定义 HTML 元素、手势操作等功能外，其他功能可以按照 [f2 官方文档及 demo](https://antv-f2.gitee.io/zh) 使用。
 
 支持：F2 的基本图表绘制和简单交互（官网上大部分直引 `@antv/f2` 的 demo 都可以在头条小程序跑通）；
@@ -20,6 +25,10 @@
 npm install tt-f2 --save
 or
 yarn add tt-f2
+# 推荐使用 npm 包作为项目管理：
+# 使用 yarn 时，已安装好 tt-f2 及其 dependency @antv/f2 的情况下
+# 如果使用 yarn add 安装其他包，会导致 tt-f2 修改的 @antv/f2 适配代码（#fff -> #ffffff）被覆盖，头条小程序报错无法识别颜色
+# 此时需要重新安装 tt-f2 执行替换脚本：yarn add tt-f2 / yarn upgrade tt-f2
 ```
 
 ### 引入规则
