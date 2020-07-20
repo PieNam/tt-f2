@@ -13,7 +13,11 @@
 
 支持：F2 的基本图表绘制和简单交互（官网上大部分直引 `@antv/f2` 的 demo 都可以在头条小程序跑通）；
 
-不支持：因为小程序运行在 JSCore 中，没有 DOM、BOM，不支持需要通过 `document` 等进行页面元素操作的功能，如 `chart.guide().html()`，还有引用了手势库`hammerjs` 的 `Interaction`。
+不支持：
+
+- 因为小程序运行在 JSCore 中，没有 DOM、BOM，不支持依赖于此的操作，比如需通过 document.createElement 进行元素操作的 chart.guide().html()；
+- Interaction 手势操作引用了手势库 hammerjs，需要 document 环境，同样不支持；
+- 因为头条小程序 Canvas Context 对 font 属性的设置仅支持 fontSize，其他 fontWeight、fontFamily 等不支持设置，故各种 style 如 tooltip 中的 titleStyle、nameStyle、valueStyle 设置中仅支持 fontSize 设置；
 
 **还不算深度使用，可能有许多未发现的问题，欢迎一起探讨，一起解决。**
 
