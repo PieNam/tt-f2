@@ -1,43 +1,52 @@
-const TT_CANVAS_CONTEXT_MAP = {
-  fillStyle: 'FillStyle',
-  fontSize: 'FontSize',
-  globalAlpha: 'GlobalAlpha',
-  opacity: 'GlobalAlpha',
-  lineCap: 'LineCap',
-  lineJoin: 'LineJoin',
-  lineWidth: 'LineWidth',
-  miterLimit: 'MiterLimit',
-  strokeStyle: 'StrokeStyle',
-  textAlign: 'TextAlign',
-  textBaseline: 'TextBaseline',
-  shadow: 'Shadow',
-  font: 'FontSize',
+const MAP = {
+  fillStyle: "setFillStyle",
+  font: "setFontSize",
+  globalAlpha: "setGlobalAlpha",
+  lineCap: "setLineCap",
+  lineJoin: "setLineJoin",
+  lineWidth: "setLineWidth",
+  miterLimit: "setMiterLimit",
+  shadowOffsetX: "setShadow",
+  shadowOffsetY: "setShadow",
+  shadowBlur: "setShadow",
+  shadowColor: "setShadow",
+  strokeStyle: "setStrokeStyle",
+  textAlign: "setTextAlign",
+  textBaseline: "setTextBaseline",
 };
 
-// 头条小程序目前仅支持 setFontSize
-// f2 会将所有属性整合为 font 简写，从中提取 fontSize 支持
+// 提取可配置的 fontSize
 const fontSizeReg = /(\d*)px/;
 
 export default (ctx) => {
-  Object.keys(TT_CANVAS_CONTEXT_MAP).forEach(key => {
+  Object.keys(MAP).forEach((key) => {
     Object.defineProperty(ctx, key, {
       set(val) {
-        const name = `set${TT_CANVAS_CONTEXT_MAP[key]}`;
-        if (!ctx[name]) {
+        const setter = MAP[key];
+        if (!ctx[setter]) {
           return;
         }
-        if (key === 'font' && fontSizeReg.test(val)) {
+        // 对设置 font 的请求，只使用 setFontSize 设置字号
+        if (key === "font" && fontSizeReg.test(val)) {
           const match = fontSizeReg.exec(val);
-          ctx[name](match[1]);
+          ctx[setter](match[1]);
           return;
         }
-        if (key === 'shadow' && Array.isArray(val)) {
-          ctx[name](...val);
+        // 考虑自行添加变量保存 shadow 各字段
+        // 每次都调用 setShadow 进行全量设置
+        if (key === "shadow" && Array.isArray(val)) {
+          ctx[`_${key}`] = val;
+          ctx[setter](
+            ctx._shadowOffsetX || 0,
+            ctx._shadowOffsetY || 0,
+            ctx._shadowBlur || 0,
+            ctx._shadowColor || ""
+          );
           return;
         }
-        ctx[name](val);
-      }
+        ctx[setter](val);
+      },
     });
   });
   return ctx;
-}
+};

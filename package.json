@@ -22,7 +22,7 @@
   "author": "PespiePie",
   "license": "ISC",
   "dependencies": {
-    "@antv/f2": "^3.6.4",
+    "@antv/f2": "^3.7.7",
     "replace": "^1.2.0"
   },
   "repository": {
