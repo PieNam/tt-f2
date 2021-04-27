@@ -34,7 +34,8 @@ export default (ctx) => {
         }
         // 考虑自行添加变量保存 shadow 各字段
         // 每次都调用 setShadow 进行全量设置
-        if (key === "shadow" && Array.isArray(val)) {
+        // 这样的粗暴实现其实会导致全局 shadow 相关属性污染，每次都要全部 set 一遍
+        if (setter === "setShadow") {
           ctx[`_${key}`] = val;
           ctx[setter](
             ctx._shadowOffsetX || 0,
