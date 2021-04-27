@@ -1,6 +1,6 @@
 {
   "name": "tt-f2",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "@antv/f2 adaptation on bytedance/toutiao micro app",
   "main": "index.js",
   "scripts": {
