@@ -15,8 +15,8 @@ const MAP = {
   textBaseline: "setTextBaseline",
 };
 
-// 提取可配置的 fontSize
-const fontSizeReg = /(\d*)px/;
+// 提取可配置的 fontSize，支持整数 / 浮点数
+const fontSizeReg = /([1-9]*\d?(\.\d{1,2})?)px/;
 
 export default (ctx) => {
   Object.keys(MAP).forEach((key) => {
